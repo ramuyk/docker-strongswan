@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  strongswan-vpn:
+    image: philplckthun/strongswan
+    container_name: strongswan-vpn
+    privileged: true
+    network_mode: host
+#    ports:
+#      - "500:500/udp"
+#      - "4500:4500/udp"
+    volumes:
+      - /lib/modules:/lib/modules:ro
+      - ./volumes/ipsec.conf:/etc/ipsec.conf:ro
+      - ./volumes/ipsec.secrets:/etc/ipsec.secrets:ro
+      - ./volumes/config:/etc/ipsec.d:rw
+    restart: unless-stopped
